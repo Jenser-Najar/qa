@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QA Portfolio – Jenser Najar</title>
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --panel: rgba(255, 255, 255, .06);
+            --panel-spot: rgba(255, 255, 255, .08);
+            --text: #e8edf3;
+            --muted: #a8b0bb;
+            --accent: #ffffff;
+            --radius: 28px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            --speed: .35s;
+            --maxw: 1200px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--bg);
+            font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+            overflow-x: hidden;
+        }
+
+        .stars,
+        .stars:before,
+        .stars:after {
+            position: fixed;
+            inset: 0;
+            content: "";
+            display: block;
+            pointer-events: none;
+        }
+
+        .stars {
+            background: radial-gradient(1200px 600px at 20% 10%, rgba(255, 255, 255, .045), transparent 60%),
+                radial-gradient(900px 500px at 80% 20%, rgba(255, 255, 255, .03), transparent 60%),
+                radial-gradient(1200px 800px at 50% 120%, rgba(255, 255, 255, .035), transparent 60%);
+        }
+
+        .stars:before {
+            background: transparent;
+            box-shadow:
+                20vw 10vh 1px 1px rgba(255, 255, 255, .8),
+                40vw 30vh 1px 0 rgba(255, 255, 255, .5),
+                60vw 70vh 2px 0 rgba(255, 255, 255, .6),
+                80vw 20vh 1px 0 rgba(255, 255, 255, .7),
+                10vw 60vh 2px 0 rgba(255, 255, 255, .45);
+        }
+
+        .stars:after {
+            background: transparent;
+            box-shadow:
+                25vw 35vh 1px 0 rgba(255, 255, 255, .35),
+                65vw 25vh 1px 0 rgba(255, 255, 255, .35),
+                85vw 75vh 1px 0 rgba(255, 255, 255, .35);
+            filter: blur(.2px);
+        }
+
+        .wrap {
+            position: relative;
+            max-width: var(--maxw);
+            margin: 0 auto;
+            min-height: 100%;
+            padding: clamp(18px, 4vw, 40px);
+        }
+
+        .avatar {
+            position: fixed;
+            top: clamp(14px, 3vw, 24px);
+            right: clamp(14px, 3vw, 28px);
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02));
+            box-shadow: var(--shadow);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .grid {
+            display: grid;
+            gap: 32px;
+            align-items: start;
+            grid-template-columns: minmax(260px, 320px) 1fr;
+            padding-top: 120px;
+        }
+
+        .panel {
+            position: relative;
+            background: var(--panel);
+            border-radius: calc(var(--radius) * 1.8);
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px) saturate(120%);
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .menu {
+            list-style: none;
+            margin: 32px 22px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .menu button {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            color: var(--text);
+            font-size: 20px;
+            font-weight: 600;
+            border: 0;
+            padding: 16px 18px;
+            cursor: pointer;
+            border-radius: 999px;
+            transition: background var(--speed), transform var(--speed);
+        }
+
+        .menu button[aria-current="true"] {
+            background: linear-gradient(180deg, var(--panel-spot), rgba(255, 255, 255, .03));
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+        }
+
+        .content {
+            min-height: 360px;
+            padding: 24px 6vw 36px 6vw;
+            border-left: 1px solid rgba(255, 255, 255, .06);
+            display: grid;
+            align-content: start;
+            gap: 14px;
+        }
+
+        .content h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .content p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 18px
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(6px)
+        }
+
+        .fade-enter-active {
+            opacity: 1;
+            transform: none;
+            transition: opacity var(--speed), transform var(--speed)
+        }
+
+        .gallery-title {
+            margin-top: 32px;
+            font-size: 20px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .gallery img {
+            width: 180px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+            background: #222;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+        }
+
+        /* Lightbox styles */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: zoom-out;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+            background: #222;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars"></div>
+    <figure class="avatar"><img src="img/yo.jpg" alt="Profile photo" /></figure>
+
+    <main class="wrap">
+        <div class="grid">
+            <nav class="panel">
+                <ul class="menu">
+                    <li><button class="tab" data-target="about" aria-current="true">About Me</button></li>
+                    <li><button class="tab" data-target="web">Web QA</button></li>
+                    <li><button class="tab" data-target="android">Android QA</button></li>
+                </ul>
+            </nav>
+
+            <section class="content" id="content">
+                <h2>About Me</h2>
+                <p>I am a self-taught software engineer and Quality Assurance professional with solid hands-on
+                    experience in manual testing for mobile and web applications. I have tested mobile apps across
+                    multiple Android devices, screen sizes, and OS versions, validating navigation flows, UI
+                    responsiveness, performance, RAM/CPU usage, battery consumption, offline behavior, and security.</p>
+                <p>I am experienced in exploratory, regression, and smoke testing, reporting and tracking bugs, and
+                    collaborating closely with developers to ensure high-quality and reliable apps. I have access to a
+                    mid-range Android smartphone with cellular data and can provide timely feedback on issues and
+                    performance metrics.</p>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const VIEWS = {
+            about: {
+                title: 'About Me',
+                body: [
+                    "I am a self-taught software engineer and Quality Assurance professional with solid hands-on experience in manual testing for mobile and web applications. I have tested mobile apps across multiple Android devices, screen sizes, and OS versions, validating navigation flows, UI responsiveness, performance, RAM/CPU usage, battery consumption, offline behavior, and security.",
+                    "I am experienced in exploratory, regression, and smoke testing, reporting and tracking bugs, and collaborating closely with developers to ensure high-quality and reliable apps. I have access to a mid-range Android smartphone with cellular data and can provide timely feedback on issues and performance metrics."
+                ]
+            },
+            web: {
+                title: 'Web QA',
+                body: [
+                    "• Performed cross-browser testing on Chrome, Firefox, and Edge.",
+                    "• Validated UI responsiveness, forms, navigation flows, and error handling.",
+                    "• Reported and tracked bugs using tools like Jira and Trello.",
+                    "• Ensured site performance under different network conditions.",
+                    'These skills were applied to projects developed and tested according to client needs, transforming their ideas into responsive websites. One example, <a href="https://bymcell.lat" target="_blank" rel="noopener" style="color:#8f6fff;text-decoration:underline dotted;">bymcell.lat</a>, was tested using the methods mentioned and browser-provided tools, ensuring quality and functionality.'
+                ]
+            },
+            android: {
+                title: 'Android QA',
+                body: [
+                    "• Tested mobile app performance, functionality, and UI responsiveness across multiple devices and screen sizes.",
+                    "• Validated navigation flows, RAM and CPU usage, battery consumption, and background processes.",
+                    "• Ensured compatibility across multiple Android versions, device models, and resolutions.",
+                    "• Conducted regression, smoke, and exploratory testing.",
+                    "• Verified network conditions, offline behavior, and app security.",
+                    "• Reported, tracked, and collaborated on bug fixes with developers using Jira/Trello.",
+                    "• Ensured app compliance with Google Play Store guidelines and best practices.",
+                    "<br>",
+                    "I have solid hands-on experience in Android QA, testing mobile apps across multiple devices, screen sizes, and Android versions. I ensure apps perform reliably under different conditions, validating navigation flows, resource usage, battery consumption, background processes, and security. I conduct regression, smoke, and exploratory testing, verify network and offline behavior, and collaborate closely with developers to report and fix bugs, ensuring apps meet Google Play Store guidelines and deliver a high-quality user experience.",
+                    "<div class='gallery-title'><b>Android App Gallery</b></div>",
+                    `<div class='gallery' id='android-gallery'></div><div class='gallery-note' style='color:var(--muted);margin-top:8px;font-size:16px;'>All apps shown above were tested and developed by me.</div>`
+                ]
+            }
+        };
+
+        const menu = document.querySelectorAll('.tab');
+        const content = document.getElementById('content');
+
+        function render(key) {
+            const view = VIEWS[key];
+            if (!view) return;
+
+            menu.forEach(btn => btn.setAttribute('aria-current', btn.dataset.target === key ? 'true' : 'false'));
+            content.classList.remove('fade-enter', 'fade-enter-active');
+            void content.offsetWidth;
+            content.classList.add('fade-enter');
+            content.innerHTML = `<h2>${view.title}</h2>` + view.body.map(p => `<p>${p}</p>`).join('');
+            // Dynamically load all images in img/ folder for Android QA gallery
+            if (key === 'android') {
+                const gallery = document.getElementById('android-gallery');
+                if (gallery) {
+                    // List of images to show in the gallery (add more as needed)
+                    const images = [
+                        'img/LinguaNova.jpg'
+                        // Add more image filenames here, e.g. 'img/app2.jpg', 'img/app3.jpg'
+                    ];
+                    gallery.innerHTML = images.map(src => `<img src='${src}' alt='Android App Screenshot' class='gallery-img' style='cursor:zoom-in' />`).join('');
+                    // Add lightbox functionality
+                    Array.from(gallery.querySelectorAll('.gallery-img')).forEach(img => {
+                        img.addEventListener('click', function () {
+                            const overlay = document.createElement('div');
+                            overlay.className = 'lightbox-overlay';
+                            overlay.innerHTML = `<img src='${img.src}' alt='Android App Screenshot' />`;
+                            overlay.onclick = () => document.body.removeChild(overlay);
+                            document.body.appendChild(overlay);
+                        });
+                    });
+                }
+            }
+            requestAnimationFrame(() => content.classList.add('fade-enter-active'));
+        }
+
+        menu.forEach(btn => btn.addEventListener('click', () => render(btn.dataset.target)));
+    </script>
+</body>
+
+</html>
+

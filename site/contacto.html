@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Misceláneas Belkis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">MB</div>
+            <button class="menu-toggle" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="header-content">
+            <h1>Misceláneas Belkis</h1>
+            <p class="subtitle">Tu tienda de confianza en Achuapa</p>
+        </div>
+    </header>
+    <main>
+        <section class="contact card" id="contact">
+            <h2>Contacto</h2>
+            <div class="contact-info">
+                <div>
+                    <span class="contact-icon">📍</span>
+                    <p>Ubicación: 3C46+3GH, Achuapa</p>
+                </div>
+                <div>
+                    <span class="contact-icon">📞</span>
+                    <p>Teléfono: <span class="phone">(agregar número)</span></p>
+                </div>
+            </div>
+            <a href="tel:agregar-numero" class="btn-secondary">Llamar ahora</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Misceláneas Belkis. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('open');
+        });
+    </script>
+</body>
+
+</html>
